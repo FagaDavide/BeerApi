@@ -1,6 +1,8 @@
-﻿namespace BeerApi.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace BeerApi.Controllers
 {
-    public class BreweryController
+    public class BreweryController : ControllerBase
     {
     }
 }
