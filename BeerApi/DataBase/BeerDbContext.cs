@@ -28,10 +28,10 @@ namespace BeerApi.DataBase
         /*======================================================================*\
         |*			                     VARIABLE         	 					*|
         \*======================================================================*/
-        public DbSet<BeerModel> Beers { get; set; }
-        public DbSet<BreweryModel> Breweries { get; set; }
-        public DbSet<UserModel> Users { get; set; }
-        public DbSet<RoleModel> Roles { get; set; }
+        public DbSet<Beer> Beers { get; set; }
+        public DbSet<Brewery> Breweries { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         /*======================================================================*\
         |*			                     METHODE       	 			    		*|
@@ -66,6 +66,7 @@ namespace BeerApi.DataBase
 
 
     }
+        public DbSet<BeerApi.Models.BeerUser> BeerUser { get; set; }
 
         /*======================================================================*\
         |*			                     END            	 					*|
