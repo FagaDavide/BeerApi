@@ -1,7 +1,9 @@
 ﻿using BeerApi.DataBase;
 using BeerApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace BeerApi.Controllers
 {
@@ -15,7 +17,63 @@ namespace BeerApi.Controllers
         {
             context = ctx;
         }
+        /////////////////////////////
+        ///TEST
+        /////////////////////////////
+        
+        [HttpGet("admin")]
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Admin()
+        {
+            var currentUser = GetCurrentUser();
+            return Ok($"/Admin\nHi {currentUser.Username}, you are an {currentUser.Role.Name}");
+        }
+       
+        [HttpGet("brewer")]
+        [Authorize(Roles = "Administrator, Brewer")]
+        public IActionResult Brewer()
+        {
+            var currentUser = GetCurrentUser();
+            return Ok($"/Brewer\nHi {currentUser.Username}, you are a {currentUser.Role.Name}");
+        }
 
+        [HttpGet("drinker")]
+        [Authorize(Roles = "Administrator, Brewer, Drinker")]
+        public IActionResult Drinker()
+        {
+            var currentUser = GetCurrentUser();
+            return Ok($"/Drinker\nHi {currentUser.Username}, you are a {currentUser.Role.Name}");
+        }
+
+        [HttpGet("whoiam")]
+        [Authorize]
+        public IActionResult WhoIam()
+        {
+            var currentUser = GetCurrentUser();
+            return Ok($"/WhoIam\nHi {currentUser.Username}, you are an {currentUser.Role.Name}");
+        }
+
+        private User GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity == null)
+                return null;
+
+            var userClaims = identity.Claims;
+
+            return new User
+            {
+                Username = userClaims.FirstOrDefault(user => user.Type == ClaimTypes.NameIdentifier)?.Value,
+                Email = userClaims.FirstOrDefault(user => user.Type == ClaimTypes.Email)?.Value,
+                Role = new Role() { Name = userClaims.FirstOrDefault(user => user.Type == ClaimTypes.Role)?.Value }
+            };
+        }
+
+        /////////////////////////////
+        ///END TEST
+        /////////////////////////////
+        
+        
         // GET: api/User
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
