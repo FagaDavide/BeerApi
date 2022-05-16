@@ -26,14 +26,14 @@ namespace BeerApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BeerUser>>> GetBeerUser()
         {
-            return await context.BeerUser.ToListAsync();
+            return await context.BeerUsers.ToListAsync();
         }
 
         // GET: api/BeerUser/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<BeerUser>> GetBeerUser(ulong id)
         {
-            var beerUser = await context.BeerUser.FindAsync(id);
+            var beerUser = await context.BeerUsers.FindAsync(id);
 
             if (beerUser == null)
                 return NotFound();
@@ -66,7 +66,7 @@ namespace BeerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<BeerUser>> PostBeerUser(BeerUser beerUser)
         {
-            context.BeerUser.Add(beerUser);
+            context.BeerUsers.Add(beerUser);
             await context.SaveChangesAsync();
 
             return CreatedAtAction("GetBeerUser", new { id = beerUser.Id }, beerUser);
@@ -76,11 +76,11 @@ namespace BeerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBeerUser(ulong id)
         {
-            var beerUser = await context.BeerUser.FindAsync(id);
+            var beerUser = await context.BeerUsers.FindAsync(id);
             if (beerUser == null)
                 return NotFound();
 
-            context.BeerUser.Remove(beerUser);
+            context.BeerUsers.Remove(beerUser);
             await context.SaveChangesAsync();
 
             return NoContent();
@@ -88,7 +88,7 @@ namespace BeerApi.Controllers
 
         private bool BeerUserExists(ulong id)
         {
-            return context.BeerUser.Any(e => e.Id == id);
+            return context.BeerUsers.Any(e => e.Id == id);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace BeerApi.Controllers
         public IActionResult Brewer()
         {
             var currentUser = GetCurrentUser();
-            return Ok($"/Brewer\nHi {currentUser.Username}, you are a {currentUser.Role.Name}");
+            return Ok($"/Brewer\nHi {currentUser.Username}, you are an {currentUser.Role.Name}");
         }
 
         [HttpGet("drinker")]
@@ -42,7 +42,7 @@ namespace BeerApi.Controllers
         public IActionResult Drinker()
         {
             var currentUser = GetCurrentUser();
-            return Ok($"/Drinker\nHi {currentUser.Username}, you are a {currentUser.Role.Name}");
+            return Ok($"/Drinker\nHi {currentUser.Username}, you are an {currentUser.Role.Name}");
         }
 
         [HttpGet("whoiam")]

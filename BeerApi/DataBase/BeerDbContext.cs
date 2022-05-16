@@ -32,6 +32,7 @@ namespace BeerApi.DataBase
         public DbSet<Brewery> Breweries { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<BeerUser> BeerUsers { get; set; }
 
         /*======================================================================*\
         |*			                     METHODE       	 			    		*|
@@ -54,20 +55,62 @@ namespace BeerApi.DataBase
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /* modelBuilder.Entity<BeerModel>()
-                 .HasMany(left => left.Users)
-                 .WithMany(right => right.Beers)
-                 .UsingEntity(join => join.ToTable("BeerNote2"));
-            */
+
             base.OnModelCreating(modelBuilder);
 
-           
+            //ROLE
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.HasKey(r => r.Id);
+                entity.Property(r => r.Name).IsRequired();
+            });
+
+            //USER
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(u => u.Id);
+                entity.Property(u => u.Username).IsRequired();
+                entity.HasOne(u => u.Role)
+                    .WithMany(r => r.Users);
+            });
+
+            //BREWERY
+            modelBuilder.Entity<Brewery>(entity =>
+            {
+                entity.HasKey(b => b.Id);
+                entity.Property(b => b.Name).IsRequired();
+                entity.HasOne(b => b.UserOwner)
+                    .WithMany(u => u.Breweries);
+            });
+
+            //BEER
+            modelBuilder.Entity<Beer>(entity =>
+            {
+                entity.HasKey(b => b.Id);
+                entity.Property(b => b.Name).IsRequired();
+                entity.HasOne(b => b.Brewery)
+                    .WithMany(br => br.Beers);
+            });
+
+            //BEERUSER
+            modelBuilder.Entity<BeerUser>(entity =>
+            {
+                entity.HasKey(bu => bu.Id);
+                entity.Property(bu => bu.BeerId).IsRequired();
+                entity.Property(bu => bu.UserId).IsRequired();
+                entity.Property(bu => bu.Score).IsRequired();
+                entity.HasIndex(bu => new { bu.BeerId, bu.UserId }).IsUnique();
+            });
+            modelBuilder.Entity<BeerUser>()
+                .HasOne(bu => bu.Beer)
+                .WithMany(b => b.BeerUsers)
+                .HasForeignKey(bu => bu.BeerId);
+            modelBuilder.Entity<BeerUser>()
+                .HasOne(bu => bu.User)
+                .WithMany(u => u.BeerUsers)
+                .HasForeignKey(bu => bu.UserId);
+        }
         
-
-
-    }
-        public DbSet<BeerApi.Models.BeerUser> BeerUser { get; set; }
-
         /*======================================================================*\
         |*			                     END            	 					*|
         \*======================================================================*/

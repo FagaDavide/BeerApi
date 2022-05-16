@@ -1,4 +1,5 @@
 ﻿using BeerApi.Models;
+using BeerApi.Tools;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,7 @@ namespace BeerApi.Controllers
 
         private User? Authenticate(UserLogin userLogin)
         {
-            var currentUser = UserSeeder.Users.First(user => user.Username.ToLower() == userLogin.Username.ToLower());
+            var currentUser = UserConst.Users.FirstOrDefault(user => user.Username.ToLower() == userLogin.Username.ToLower());
 
             if (currentUser == null)
                 return null;

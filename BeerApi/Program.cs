@@ -12,6 +12,7 @@ using System.Text;
 /*======================================================================*\
 |*			                     VARIABLE         	 					*|
 \*======================================================================*/
+bool isDevMode = true;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -28,6 +29,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Add DbContext (config in BeerDbContext.cs)
 builder.Services.AddDbContext<BeerDbContext>();
+
+builder.Services.AddTransient<BeerDbSeeder>();
 // Add Authentication (JWT)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -50,6 +53,9 @@ var app = builder.Build();
 /*======================================================================*\
 |*			                     CONFIGURE         	 					*|
 \*======================================================================*/
+if (isDevMode)
+    SeedData();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -62,3 +68,16 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
+void SeedData()
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<BeerDbSeeder>();
+        service.Seed();
+    }
+}
