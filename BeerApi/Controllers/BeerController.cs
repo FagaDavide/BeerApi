@@ -1,4 +1,10 @@
-﻿using BeerApi.DataBase;
+﻿/*====================================================================*\
+Name ........ : BeerController.cs
+Role ........ : Beer - CRUD
+Author ...... : Davide Faga
+Date ........ : 18.05.2022
+\*====================================================================*/
+using BeerApi.DataBase;
 using BeerApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

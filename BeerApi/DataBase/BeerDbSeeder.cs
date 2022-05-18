@@ -1,4 +1,10 @@
-﻿using BeerApi.Tools;
+﻿/*====================================================================*\
+Name ........ : BeerDbSeeder.cs
+Role ........ : Seed the Db with the Const
+Author ...... : Davide Faga
+Date ........ : 18.05.2022
+\*====================================================================*/
+using BeerApi.Tools;
 
 namespace BeerApi.DataBase
 {

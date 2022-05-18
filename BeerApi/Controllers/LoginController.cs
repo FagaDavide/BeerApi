@@ -1,7 +1,13 @@
-﻿using BeerApi.Models;
+﻿/*====================================================================*\
+Name ........ : LoginController.cs
+Role ........ : The login will provide the token(JWT), if the credentials 
+                are corrects
+Author ...... : Davide Faga
+Date ........ : 18.05.2022
+\*====================================================================*/
+using BeerApi.Models;
 using BeerApi.Tools;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

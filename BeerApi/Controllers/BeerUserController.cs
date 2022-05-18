@@ -1,9 +1,9 @@
-﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿/*====================================================================*\
+Name ........ : BeerUserController.cs
+Role ........ : BeerUser - CRUD
+Author ...... : Davide Faga
+Date ........ : 18.05.2022
+\*====================================================================*/
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BeerApi.DataBase;

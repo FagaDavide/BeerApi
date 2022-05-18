@@ -1,4 +1,10 @@
-﻿namespace BeerApi.Models
+﻿/*====================================================================*\
+Name ........ : Beer.cs
+Role ........ : Beer - Model
+Author ...... : Davide Faga
+Date ........ : 18.05.2022
+\*====================================================================*/
+namespace BeerApi.Models
 {
     public class Beer
     {

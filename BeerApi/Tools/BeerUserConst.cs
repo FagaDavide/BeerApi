@@ -1,9 +1,18 @@
-﻿using BeerApi.Models;
+﻿/*====================================================================*\
+Name ........ : BeerUserConst.cs
+Role ........ : List of beeruser, used to seed DB 
+Author ...... : Davide Faga
+Date ........ : 18.05.2022
+\*====================================================================*/
+using BeerApi.Models;
 
 namespace BeerApi.Tools
 {
     public class BeerUserConst
     {
+       /*======================================================================*\
+       |*			                     CONSTANT         	 					*|
+       \*======================================================================*/
         public static List<BeerUser> BeerUsers = new List<BeerUser>()
         {
             new BeerUser()
